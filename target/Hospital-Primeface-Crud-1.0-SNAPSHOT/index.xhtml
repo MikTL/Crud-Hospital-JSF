@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Hospital Crud</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <p:menubar>
+            <p:submenu label="Inicio" icon="pi pi-home"  />
+            <p:submenu label="Contacto" icon="pi pi-envelope" />
+        </p:menubar>
+        <br/>
+        <div class="card" style="display:flex; justify-content: center; gap: 10px">
+            <h:form>
+                <p:commandButton value="Agregar un Hospital" action="#{hospitalListBean.paginaAgregarHospital}" style="margin-right: 5px"/>
+                <p:commandButton value="Buscar" type="button" icon="pi pi-search" onclick="PF('dlg3').show()"/>
+            </h:form>
+            <h:form id="formBuscar">
+                <p:dialog header="Buscar Hospital" widgetVar="dlg3" minHeight="40" width="350" showEffect="fade">
+                    <span class="ui-input-icon-left">
+                        <i class="pi pi-search" />
+                        <p:inputText 
+                            placeholder="Buscar por nombre" id="input" 
+                            value="#{formBuscarBean.nombre}" 
+                            disabled="#{formBuscarBean.inputDisabled}">
+                            <p:ajax event="keyup" listener="#{formBuscarBean.checkInput}" update=":formBuscar:select" />
+                        </p:inputText> 
+                    </span>
+                    <div class="field col-12 md:col-4" style="margin-bottom: 4px">
+                        <p:outputLabel for="select" value="Gerentes" style="font-weight: bold;"/>
+                        <br/>
+                        <p:selectOneMenu id="select" value="#{formBuscarBean.gerente}" disabled="#{formBuscarBean.selectDisabled}">
+                            <f:selectItem itemLabel="Seleccione" itemValue="#{0}"/>
+                            <f:selectItems 
+                                value="#{formsBean.gerentes}" 
+                                var="gerente" 
+                                itemLabel="#{gerente.desGerente}" 
+                                itemValue="#{gerente.idGerente}" 
+                                />
+                            <p:ajax event="change" listener="#{formBuscarBean.checkSelect}" update=":formBuscar:input" />
+                        </p:selectOneMenu>
+                    </div>
+                    <f:facet name="footer">
+                        <p:commandButton 
+                            value="Buscar" 
+                            style="width: 5rem" 
+                            action="#{formBuscarBean.buscarHospital}" />
+                    </f:facet>
+                </p:dialog>
+            </h:form>
+        </div>
+        <hr/>
+        <p:dataTable value="#{hospitalListBean.hospitales}" var="hospital" id="table-hosp">
+            <p:column>
+                <f:facet name="header">Nombre Hospital</f:facet>
+                    #{hospital.nombre}
+            </p:column>
+            <p:column>
+                <f:facet name="header">Sede</f:facet>
+                    #{hospital.sede}
+            </p:column>
+            <p:column>
+                <f:facet name="header">Condicion</f:facet>
+                    #{hospital.condicion}
+            </p:column>
+            <p:column>
+                <f:facet name="header">Gerente</f:facet>
+                    #{hospital.gerente}
+            </p:column>
+            <p:column>
+                <f:facet name="header">Acciones</f:facet>
+                <h:form>
+                    <p:growl id="message" showDetail="true"/>
+                    <p:commandButton value="editar" action="#{formsBean.cargarDatosParaEditar(hospital.id)}" update="table-hosp message" styleClass="ui-button-warning" icon="pi pi-pencil" style="margin-right: 5px;">
+                        <p:confirm header="Confirmation" message="¿Seguro que desea editar este registro?" icon="pi pi-info-circle"/>
+                    </p:commandButton>
+                    <p:commandButton value="Borrar" action="#{hospitalListBean.eliminarRegistro(hospital.id)}" update="table-hosp message" styleClass="ui-button-danger" icon="pi pi-times">
+                        <p:confirm header="Confirmation" message="¿Seguro que desea eliminar este registro?" icon="pi pi-info-circle"/>
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" />
+                    </p:confirmDialog>
+                    <p:remoteCommand name="actualizarTablaHospitales" update=":table-hosp" />
+                </h:form>
+            </p:column>
+        </p:dataTable>
+       
+    </h:body>
+</html>

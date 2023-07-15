@@ -41,8 +41,6 @@ public class FormBuscarBean implements Serializable {
         selectDisabled = false;
     }
 
-    // Getters and setters
-
     public String getNombre() {
         return nombre;
     }

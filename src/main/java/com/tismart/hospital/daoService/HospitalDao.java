@@ -27,6 +27,7 @@ public class HospitalDao extends GenericDAO implements Serializable{
         } 
         return listaHospitalDTO;
     }
+    
     public void guardarHospital(
         String nombre,
         int antiguedad,

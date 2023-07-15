@@ -1,5 +1,6 @@
 package com.tismart.hospital.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 @Entity
 @Table(name = "PROVINCIA")
-public class Provincia {
+public class Provincia implements Serializable{
     @Id
     @Column(name = "IDPROVINCIA")
     private int idProvincia;

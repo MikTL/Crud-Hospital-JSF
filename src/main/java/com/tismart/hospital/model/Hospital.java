@@ -1,5 +1,6 @@
 package com.tismart.hospital.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +31,6 @@ import javax.persistence.TemporalType;
                             type = Class.class, 
                             name = "p_hospitales")
                 }
-                
         ),
         @NamedStoredProcedureQuery(
                 name="insertarHospital",
@@ -80,7 +80,7 @@ import javax.persistence.TemporalType;
         )
     }
 )
-public class Hospital {
+public class Hospital implements Serializable{
     @Id
     @Column(name = "IDHOSPITAL")
     private int idHospital;

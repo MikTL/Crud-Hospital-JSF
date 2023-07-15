@@ -15,6 +15,7 @@
         <class>com.tismart.hospital.model.Sede</class>
         <class>com.tismart.hospital.model.Provincia</class>
         <class>com.tismart.hospital.model.Gerente</class>
+        <class>com.tismart.hospital.model.Usuario</class>
         <properties>
           <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@//localhost:1521/XEPDB1"/>
           <property name="javax.persistence.jdbc.user" value="HOSPITAL_ADMI"/>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Login Hospital Crud</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h1 style="text-align: center">Tismart Solutions</h1>
+        <div style="display:grid; place-content:center;">
+            <h:form>
+                <p:growl id="growl" showDetail="true" />
+                <p:card style="width: 25em; display: flex; justify-content: center;">
+                    <f:facet name="title">
+                        Login
+                    </f:facet>
+                    <span class="ui-float-label">
+                        <p:inputText id="username" value="#{loginBean.username}" required="true"/>
+                        <p:outputLabel for="@previous" value="Nombre de Usuario" style="font-weight: bold;"/>
+                        <p:message for="username" display="icon"/>
+                    </span>
+                    <br/>
+                    <span class="ui-float-label">
+                        <p:password id="password" value="#{loginBean.password}" toggleMask="true" redisplay="true" size="17" required="true"/>
+                        <p:outputLabel for="@previous" value="Contraseña" style="font-weight: bold;"/>
+                        <p:message for="password" display="icon"/>
+                    </span>
+                    <f:facet name="footer">
+                        <p:commandButton icon="pi pi-unlock" value="Login" update="@form" action="#{loginBean.login}"/>
+                    </f:facet>
+                </p:card>
+            </h:form>  
+
+        </div>
+    </h:body>
+</html>
